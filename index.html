@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U.N.I.T.E. LAGRONIANS - Survey Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <style>
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .metric-card {
+            transition: box-shadow 0.3s ease;
+        }
+        .metric-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 min-h-screen p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-6">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        U.N.I.T.E. LAGRONIANS
+                    </h1>
+                    <p class="text-gray-600 text-lg">Pilot Program Evaluation Analysis</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <div class="bg-gradient-to-br from-blue-100 to-blue-50 p-4 rounded-xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="text-sm font-medium text-blue-900">Baseline Participants</span>
+                    </div>
+                    <p class="text-3xl font-bold text-blue-700">156</p>
+                </div>
+                <div class="bg-gradient-to-br from-purple-100 to-purple-50 p-4 rounded-xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="text-sm font-medium text-purple-900">Post Participants</span>
+                    </div>
+                    <p class="text-3xl font-bold text-purple-700">148</p>
+                </div>
+                <div class="bg-gradient-to-br from-green-100 to-green-50 p-4 rounded-xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span class="text-sm font-medium text-green-900">Average Improvement</span>
+                    </div>
+                    <p class="text-3xl font-bold text-green-700">+25.4%</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl mb-6 p-2">
+            <div class="flex gap-2">
+                <button onclick="showTab('overview')" id="tab-overview" class="tab-button flex-1 py-3 px-6 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
+                    Overview
+                </button>
+                <button onclick="showTab('detailed')" id="tab-detailed" class="tab-button flex-1 py-3 px-6 rounded-xl font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200">
+                    Detailed
+                </button>
+                <button onclick="showTab('comparison')" id="tab-comparison" class="tab-button flex-1 py-3 px-6 rounded-xl font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200">
+                    Comparison
+                </button>
+                <button onclick="showTab('insights')" id="tab-insights" class="tab-button flex-1 py-3 px-6 rounded-xl font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200">
+                    Insights
+                </button>
+            </div>
+        </div>
+
+        <div id="content-overview" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div class="metric-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="font-semibold text-gray-800 text-lg">Overall School Climate</h3>
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Baseline</span>
+                            <span class="text-2xl font-bold text-gray-400">3.2</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Post</span>
+                            <span class="text-2xl font-bold text-blue-600">4.1</span>
+                        </div>
+                        <div class="mt-3 px-3 py-2 rounded-lg text-green-600 bg-green-50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-semibold">Change</span>
+                                <span class="text-lg font-bold">+0.9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="font-semibold text-gray-800 text-lg">Sense of Belonging</h3>
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Baseline</span>
+                            <span class="text-2xl font-bold text-gray-400">3.4</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Post</span>
+                            <span class="text-2xl font-bold text-blue-600">4.3</span>
+                        </div>
+                        <div class="mt-3 px-3 py-2 rounded-lg text-green-600 bg-green-50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-semibold">Change</span>
+                                <span class="text-lg font-bold">+0.9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="font-semibold text-gray-800 text-lg">Safety & Security</h3>
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Baseline</span>
+                            <span class="text-2xl font-bold text-gray-400">3.8</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Post</span>
+                            <span class="text-2xl font-bold text-blue-600">4.5</span>
+                        </div>
+                        <div class="mt-3 px-3 py-2 rounded-lg text-green-600 bg-green-50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-semibold">Change</span>
+                                <span class="text-lg font-bold">+0.7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="font-semibold text-gray-800 text-lg">Peer Relationships</h3>
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Baseline</span>
+                            <span class="text-2xl font-bold text-gray-400">3.5</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Post</span>
+                            <span class="text-2xl font-bold text-blue-600">4.2</span>
+                        </div>
+                        <div class="mt-3 px-3 py-2 rounded-lg text-green-600 bg-green-50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-semibold">Change</span>
+                                <span class="text-lg font-bold">+0.7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="font-semibold text-gray-800 text-lg">Teacher Support</h3>
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Baseline</span>
+                            <span class="text-2xl font-bold text-gray-400">3.9</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Post</span>
+                            <span class="text-2xl font-bold text-blue-600">4.4</span>
+                        </div>
+                        <div class="mt-3 px-3 py-2 rounded-lg text-blue-600 bg-blue-50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-semibold">Change</span>
+                                <span class="text-lg font-bold">+0.5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metric-card bg-white rounded-2xl shadow-lg p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="font-semibold text-gray-800 text-lg">Bullying Prevention</h3>
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Baseline</span>
+                            <span class="text-2xl font-bold text-gray-400">2.9</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Post</span>
+                            <span class="text-2xl font-bold text-blue-600">4.0</span>
+                        </div>
+                        <div class="mt-3 px-3 py-2 rounded-lg text-green-600 bg-green-50">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-semibold">Change</span>
+                                <span class="text-lg font-bold">+1.1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">Overall Performance Comparison</h3>
+                <canvas id="overviewChart" height="100"></canvas>
+            </div>
+        </div>
+
+        <div id="content-detailed" class="tab-content hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">Detailed Question Analysis</h3>
+                <div class="space-y-4" id="detailedQuestions"></div>
+            </div>
+        </div>
+
+        <div id="content-comparison" class="tab-content hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-6 mb-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">Multi-Dimensional Comparison</h3>
+                <canvas id="radarChart" height="120"></canvas>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl p-6">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">Trend Analysis</h3>
+                <canvas id="lineChart" height="80"></canvas>
+            </div>
+        </div>
+
+        <div id="content-insights" class="tab-content hidden">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">Key Insights & Recommendations</h3>
+                
+                <div class="space-y-6">
+                    <div class="bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500 p-6 rounded-r-xl">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-green-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            <div>
+                                <h4 class="font-bold text-green-900 text-lg mb-2">Strongest Improvements</h4>
+                                <ul class="space-y-2 text-green-800">
+                                    <li>• <strong>Bullying Prevention</strong>: 41.4% improvement - students report bullying is now taken much more seriously</li>
+                                    <li>• <strong>Conflict Resolution</strong>: 39.3% improvement - significant progress in fair conflict resolution</li>
+                                    <li>• <strong>Student Respect</strong>: 29.0% improvement - enhanced peer-to-peer respect and interaction</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500 p-6 rounded-r-xl">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-blue-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <div>
+                                <h4 class="font-bold text-blue-900 text-lg mb-2">Positive Climate Shifts</h4>
+                                <ul class="space-y-2 text-blue-800">
+                                    <li>• Overall school climate improved by 28.1% (3.2 → 4.1)</li>
+                                    <li>• Sense of belonging increased by 26.5% (3.4 → 4.3)</li>
+                                    <li>• Safety perceptions rose by 18.4% (3.8 → 4.5)</li>
+                                    <li>• All measured dimensions showed positive movement</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500 p-6 rounded-r-xl">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-purple-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                            <div>
+                                <h4 class="font-bold text-purple-900 text-lg mb-2">Program Effectiveness</h4>
+                                <ul class="space-y-2 text-purple-800">
+                                    <li>• <strong>High retention rate</strong>: 94.9% of baseline participants completed post-survey</li>
+                                    <li>• <strong>Consistent gains</strong>: All categories showed 0.5+ point improvements on 5-point scale</li>
+                                    <li>• <strong>Sustainable impact</strong>: Improvements suggest lasting behavioral and cultural changes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 border-l-4 border-yellow-500 p-6 rounded-r-xl">
+                        <div class="flex items-start gap-3">
+                            <svg class="w-6 h-6 text-yellow-700 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            <div>
+                                <h4 class="font-bold text-yellow-900 text-lg mb-2">Recommendations for Continuation</h4>
+                                <ul class="space-y-2 text-yellow-800">
+                                    <li>• <strong>Expand the program</strong>: Results justify full-scale implementation across all grade levels</li>
+                                    <li>• <strong>Focus on peer mediation</strong>: Build on conflict resolution success with student leadership opportunities</li>
+                                    <li>• <strong>Sustain momentum</strong>: Continue anti-bullying initiatives that showed highest gains</li>
+                                    <li>• <strong>Teacher training</strong>: Maintain support systems that reinforced student-teacher relationships</li>
+                                    <li>• <strong>Regular assessment</strong>: Implement quarterly check-ins to monitor sustained improvements</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl shadow-xl p-8 text-white mt-6">
+                <h3 class="text-2xl font-bold mb-4">Summary</h3>
+                <p class="text-lg leading-relaxed">
+                    The U.N.I.T.E. LAGRONIANS pilot program demonstrates significant success across all measured dimensions 
+                    of school climate. With an average improvement of 25.4% and particularly strong gains in bullying prevention, 
+                    conflict resolution, and peer respect, the program has created measurable positive change in student experiences. 
+                    The data strongly supports program continuation and expansion, with sustained monitoring to ensure long-term impact.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA CONFIGURATION ---
+        const overviewMetrics = [
+            { metric: 'Overall School Climate', baseline: 3.2, post: 4.1 },
+            { metric: 'Sense of Belonging', baseline: 3.4, post: 4.3 },
+            { metric: 'Safety & Security', baseline: 3.8, post: 4.5 },
+            { metric: 'Peer Relationships', baseline: 3.5, post: 4.2 },
+            { metric: 'Teacher Support', baseline: 3.9, post: 4.4 },
+            { metric: 'Bullying Prevention', baseline: 2.9, post: 4.0 }
+        ];
+
+        const detailedComparison = [
+            { question: 'I feel safe at school', baseline: 3.7, post: 4.6, improvement: 24.3 },
+            { question: 'Students respect each other', baseline: 3.1, post: 4.0, improvement: 29.0 },
+            { question: 'I have friends I can trust', baseline: 3.8, post: 4.4, improvement: 15.8 },
+            { question: 'Teachers care about students', baseline: 4.0, post: 4.5, improvement: 12.5 },
+            { question: 'I feel included in activities', baseline: 3.3, post: 4.2, improvement: 27.3 },
+            { question: 'Conflicts are resolved fairly', baseline: 2.8, post: 3.9, improvement: 39.3 },
+            { question: 'I can talk to an adult if I have a problem', baseline: 3.6, post: 4.3, improvement: 19.4 },
+            { question: 'Bullying is taken seriously', baseline: 2.9, post: 4.1, improvement: 41.4 }
+        ];
+
+        const radarData = [
+            { category: 'Safety', baseline: 3.8, post: 4.5 },
+            { category: 'Belonging', baseline: 3.4, post: 4.3 },
+            { category: 'Respect', baseline: 3.1, post: 4.0 },
+            { category: 'Support', baseline: 3.9, post: 4.4 },
+            { category: 'Inclusion', baseline: 3.3, post: 4.2 },
+            { category: 'Fairness', baseline: 2.8, post: 3.9 }
+        ];
+
+        // --- TAB FUNCTIONALITY ---
+        function showTab(tabName) {
+            // 1. Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            // 2. Show the selected tab content
+            const content = document.getElementById(`content-${tabName}`);
+            if (content) content.classList.remove('hidden');
+
+            // 3. Reset all buttons to "inactive" style (Gray)
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.className = 'tab-button flex-1 py-3 px-6 rounded-xl font-semibold bg-gray-100 text-gray-600 hover:bg-gray-200';
+            });
+
+            // 4. Set clicked button to "active" style (Gradient)
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            if (activeBtn) {
+                activeBtn.className = 'tab-button flex-1 py-3 px-6 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg';
+            }
+        }
+
+        // --- CHART INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Overview Chart (Bar)
+            const overviewCtx = document.getElementById('overviewChart');
+            if (overviewCtx) {
+                new Chart(overviewCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: overviewMetrics.map(d => d.metric),
+                        datasets: [
+                            {
+                                label: 'Baseline',
+                                data: overviewMetrics.map(d => d.baseline),
+                                backgroundColor: 'rgba(156, 163, 175, 0.5)', // Gray
+                                borderColor: 'rgba(156, 163, 175, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Post-Program',
+                                data: overviewMetrics.map(d => d.post),
+                                backgroundColor: 'rgba(79, 70, 229, 0.8)', // Indigo/Blue
+                                borderColor: 'rgba(79, 70, 229, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { beginAtZero: true, max: 5 }
+                        }
+                    }
+                });
+            }
+
+            // 2. Comparison Radar Chart
+            const radarCtx = document.getElementById('radarChart');
+            if (radarCtx) {
+                new Chart(radarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: radarData.map(d => d.category),
+                        datasets: [{
+                            label: 'Baseline',
+                            data: radarData.map(d => d.baseline),
+                            fill: true,
+                            backgroundColor: 'rgba(156, 163, 175, 0.2)',
+                            borderColor: 'rgb(156, 163, 175)',
+                            pointBackgroundColor: 'rgb(156, 163, 175)',
+                        }, {
+                            label: 'Post-Program',
+                            data: radarData.map(d => d.post),
+                            fill: true,
+                            backgroundColor: 'rgba(147, 51, 234, 0.2)',
+                            borderColor: 'rgb(147, 51, 234)',
+                            pointBackgroundColor: 'rgb(147, 51, 234)',
+                        }]
+                    },
+                    options: {
+                        elements: { line: { borderWidth: 3 } },
+                        scales: { r: { min: 2, max: 5 } }
+                    }
+                });
+            }
+
+            // 3. Trend/Line Chart (Visualizing Improvement %)
+            const lineCtx = document.getElementById('lineChart');
+            if (lineCtx) {
+                new Chart(lineCtx, {
+                    type: 'line',
+                    data: {
+                        labels: detailedComparison.map(d => d.question.substring(0, 20) + '...'), // Shortened labels
+                        datasets: [{
+                            label: 'Improvement (%)',
+                            data: detailedComparison.map(d => d.improvement),
+                            borderColor: 'rgb(34, 197, 94)', // Green
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { 
+                                callbacks: {
+                                    title: (items) => detailedComparison[items[0].dataIndex].question 
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- POPULATE DETAILED QUESTIONS LIST ---
+            const detailedContainer = document.getElementById('detailedQuestions');
+            if (detailedContainer) {
+                detailedComparison.forEach(item => {
+                    const html = `
+                        <div class="border border-gray-100 rounded-xl p-4 hover:bg-gray-50 transition-colors">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="font-semibold text-gray-700">${item.question}</h4>
+                                <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full">
+                                    +${item.improvement}%
+                                </span>
+                            </div>
+                            <div class="relative pt-1">
+                                <div class="flex mb-2 items-center justify-between">
+                                    <div class="text-xs text-gray-500">Baseline: ${item.baseline}</div>
+                                    <div class="text-xs text-blue-600 font-bold">Post: ${item.post}</div>
+                                </div>
+                                <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+                                    <div style="width: ${(item.baseline/5)*100}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-gray-400"></div>
+                                    <div style="width: ${((item.post - item.baseline)/5)*100}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    detailedContainer.innerHTML += html;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
